@@ -1,0 +1,27 @@
+<div class="page">
+  <div class="btn btn-sm btn-warning" (click)="volverAHome()">Volver</div>
+  <h3></h3>
+
+  <div class="main">
+    <div class="listado-container">
+      <h5>Listado de cotizaciones</h5>
+
+      <div class="cliente-item" *ngFor="let cot of cotizaciones">
+        <span><b>Fecha:</b> {{ cot.fecha }} </span>
+        <span><b>Estado:</b> {{ cot.estado }} </span>
+        <!-- <span><b>tipo:</b> {{ cot.tipo }} </span> -->
+      </div>
+    </div>
+
+    <div class="listado-productos">
+      <h5>Listado de productos</h5>
+
+      <div class="cliente-item" *ngFor="let cot of productos">
+        <div class="producto">Nombre: producto #1</div>
+        <!-- <span><b>Fecha:</b> {{ cot.fecha }} </span>
+        <span><b>Estado:</b> {{ cot.estado }} </span> -->
+        <!-- <span><b>tipo:</b> {{ cot.tipo }} </span> -->
+      </div>
+    </div>
+  </div>
+</div>

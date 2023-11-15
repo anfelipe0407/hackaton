@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="page">
+  <button class="btn btn-danger" (click)="cerrarSesion('auth')">
+    Cerrar sesión
+  </button>
+
+  <div class="opciones-container">
+    <div class="opcion-item" (click)="goToOpcion('clientes')">
+      <h4>Gestionar clientes</h4>
+    </div>
+
+    <div class="opcion-item" (click)="goToOpcion('asesores')">
+      <h4>Gestionar asesores</h4>
+    </div>
+
+    <div class="opcion-item" (click)="goToOpcion('productos')">
+      <h4>Gestionar productos</h4>
+    </div>
+
+    <div class="opcion-item" (click)="goToOpcion('cotizaciones')">
+      <h4>Gestionar cotizaciones</h4>
+    </div>
+  </div>
+</div>

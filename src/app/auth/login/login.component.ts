@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,19 @@ export class LoginComponent implements OnInit {
     tipo: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
   login() {
-    const loginInfo: LoginInfo = {
-      usuario: this.loginForm.get('usuario')?.value,
-      clave: this.loginForm.get('clave')?.value,
-      id_rol: this.loginForm.get('rol')?.value,
+    const loginInfo = {
+      usuario: this.formularioLogin.get('usuario')?.value,
+      clave: this.formularioLogin.get('clave')?.value,
+      tipo: this.formularioLogin.get('tipo')?.value,
     };
 
     this.authService.login(loginInfo).subscribe((res) => {
@@ -32,33 +37,31 @@ export class LoginComponent implements OnInit {
         console.log('LOGIN CORRECTO');
         console.log(res);
 
-        this.authService.userAuthInfo = {
-          rol_id: loginInfo.id_rol,
-          rol: rolNombre,
-        };
+        console.log('INFO USUARIO');
 
-        // * Se crea la sesion
-        this.authService
-          .crearSesionUsuario({
-            id_usuario: this.authService.userIdRequest,
-          })
-          .subscribe((res) => {
-            switch (this.authService.userAuthInfo.rol.toLowerCase()) {
-              case 'estudiante':
-                this.router.navigate(['/student']);
-                break;
-              case 'docente':
-                this.router.navigate(['/docente']);
-                break;
-              case 'administrativo':
-                this.router.navigate(['/admin']);
-                break;
+        this.authService.userInfo = res.login;
+        this.authService.cliente_id = res.cliente_id;
+        console.log(this.authService.userInfo);
 
-              default:
-                // TODO: alerta de error de login. ROl no encontrado
-                break;
-            }
-          });
+        switch (res.login.tipo) {
+          case 'administrador':
+            this.router.navigate(['/admin']);
+            break;
+          case 'asesor':
+            this.router.navigate(['/asesor']);
+            break;
+          case 'cliente':
+            this.router.navigate(['/cliente']);
+            break;
+
+          default:
+            // TODO: alerta de error de login. ROl no encontrado
+            break;
+        }
+      }
+
+      if (res.error) {
+        console.log('ERROR DE INICIO DE SESION');
       }
     });
   }

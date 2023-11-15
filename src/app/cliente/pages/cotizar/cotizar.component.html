@@ -1,0 +1,52 @@
+<div class="page">
+  <div class="btn btn-sm btn-warning" (click)="volverAHome()">Volver</div>
+  <h3>Gestión de asesores</h3>
+
+  <div class="main">
+    <div class="listado-container">
+      <h5>Listado de productos</h5>
+
+      <div class="producto-item" *ngFor="let producto of productos">
+        <span><b>Nombre:</b> {{ producto.nombre }} </span>
+        <span
+          ><b>Metro por paquete:</b> {{ producto.metros_por_paquete }}
+        </span>
+        <span><b>precio: </b>${{ producto.precio }} </span>
+
+        <form [formGroup]="formularioCantidad">
+          <div>
+            <!-- class="form-group" -->
+            <label class="textUser">Cantidad:</label>
+            <!-- class="form-control" -->
+            <input formControlName="cantidad" type="number" />
+          </div>
+        </form>
+        <button class="btn btn-warning" (click)="agregarACarrito(producto)">
+          Agregar
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="carrito">
+      <h5>Productos agregados</h5>
+
+      <div class="item-agregado" *ngFor="let prod of carrito">
+        <b>nombre:</b> {{ prod.nombre }} <b>cantidad:</b> {{ prod.cantidad }}
+        <b>Subtotal: {{ prod.precio * prod.cantidad }}</b>
+      </div>
+
+      <div>
+        <span>Total: ${{ precio_total }}</span>
+      </div>
+
+      <button
+        class="btn btn-warning"
+        (click)="crearCotizacion()"
+        [disabled]="carrito.length === 0"
+      >
+        Realizar cotización
+      </button>
+    </div>
+  </div>
+</div>

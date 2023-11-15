@@ -1,1 +1,36 @@
-<p>gestion-asesores works!</p>
+<div class="page">
+  <div class="btn btn-sm btn-warning" (click)="volverAHome()">Volver</div>
+  <h3>Gestión de asesores</h3>
+
+  <div class="agregar-container">
+    <h5>Agregar asesor</h5>
+
+    <form [formGroup]="formularioCrear" (ngSubmit)="crearCliente()">
+      <div class="form-group">
+        <label class="textUser">nombre:</label>
+        <input class="form-control" formControlName="nombre" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label class="textUser">num_identificacion:</label>
+        <input
+          class="form-control"
+          formControlName="num_identificacion"
+          type="text"
+        />
+      </div>
+
+      <button id="login-submit" class="btn btn-warning">Agregar</button>
+    </form>
+  </div>
+
+  <div class="listado-container">
+    <h5>Listado de clientes</h5>
+
+    <div class="cliente-item" *ngFor="let asesor of asesores">
+      <span><b>Nombre:</b> {{ asesor.nombre }} </span>
+      <span><b>Usuario:</b> {{ asesor.usuario }} </span>
+      <span><b>tipo:</b> {{ asesor.tipo }} </span>
+    </div>
+  </div>
+</div>
