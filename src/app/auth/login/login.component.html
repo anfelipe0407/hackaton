@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="page">
+  <div class="main">
+    <div class="login">
+      <h4>Iniciar sesión</h4>
+      <!-- [formGroup]="loginForm" (ngSubmit)="login()" -->
+      <form [formGroup]="formularioLogin">
+        <div class="form-group">
+          <label for="usuario" class="textUser">Usuario:</label>
+          <input class="form-control" formControlName="usuario" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label for="usuario" class="textUser">Clave:</label>
+          <input class="form-control" formControlName="clave" type="text" />
+        </div>
+
+        <select class="form-select" formControlName="rol">
+          <option value="">-- Seleccione su rol --</option>
+          <option value="administrador">Administrador</option>
+          <option value="asesor">Asesor</option>
+          <option value="cliente">Cliente</option>
+        </select>
+
+        <button id="login-submit" class="btn btn-primary" type="submit">
+          Ingresar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
